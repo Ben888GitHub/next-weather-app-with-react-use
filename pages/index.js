@@ -61,11 +61,11 @@ export default function Home() {
 		setValue([...value, weatherData]);
 	};
 
-	isLoading && <p>Loading...</p>;
+	// isLoading && <p>Loading...</p>;
 
-	error && <p>Error!</p>;
+	// error && <p>Error!</p>;
 
-	data?.cod === '404' && <p>City not found</p>;
+	// data?.cod === '404' && <p>City not found</p>;
 
 	return (
 		<div className={styles.container}>
@@ -75,59 +75,57 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			{data && (
-				<div
-					className="d-flex justify-content-center align-items-center"
-					style={{ minHeight: '100vh' }}
-				>
+			<div
+				className="d-flex justify-content-center align-items-center"
+				style={{ minHeight: '100vh' }}
+			>
+				<div>
 					<div>
+						<input
+							onChange={(e) => setSearchCity(e.target.value)}
+							type="text"
+							placeholder="City"
+							value={searchCity}
+						/>
+						<button onClick={handleSubmit}>Search</button>
+					</div>
+					<div>
+						<h1 className="fw-bolder" style={{ fontSize: '60px' }}>
+							{data?.name}, {data?.sys.country}
+						</h1>
+						13 January, 2022
+					</div>
+					<div className="d-flex justify-content-between align-items-center mt-4">
+						<div className="pe-5">
+							<h2>{Math.round(data?.main?.temp)}</h2>
+							<sup>°C</sup>
+							<p className="text-info">{data?.weather[0].description}</p>
+						</div>
 						<div>
-							<input
-								onChange={(e) => setSearchCity(e.target.value)}
-								type="text"
-								placeholder="City"
-								value={searchCity}
+							<img
+								src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
+								alt=""
+								width={100}
+								draggable="false"
 							/>
-							<button onClick={handleSubmit}>Search</button>
-						</div>
-						<div>
-							<h1 className="fw-bolder" style={{ fontSize: '60px' }}>
-								{data?.name}, {data?.sys.country}
-							</h1>
-							13 January, 2022
-						</div>
-						<div className="d-flex justify-content-between align-items-center mt-4">
-							<div className="pe-5">
-								<h2>{Math.round(data?.main?.temp)}</h2>
-								<sup>°C</sup>
-								<p className="text-info">{data?.weather[0].description}</p>
-							</div>
-							<div>
-								<img
-									src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
-									alt=""
-									width={100}
-									draggable="false"
-								/>
-							</div>
-						</div>
-						<hr />
-						<div className="d-md-flex justify-content-between align-items-center mt-4">
-							<button
-								onClick={handleSave}
-								className="btn btn-success border-0 save-btn px-4 py-3"
-							>
-								Save
-							</button>
-							<Link href="/history">
-								<button className="btn btn-danger border-0 history-btn px-4 py-3 ms-auto">
-									My History
-								</button>
-							</Link>
 						</div>
 					</div>
+					<hr />
+					<div className="d-md-flex justify-content-between align-items-center mt-4">
+						<button
+							onClick={handleSave}
+							className="btn btn-success border-0 save-btn px-4 py-3"
+						>
+							Save
+						</button>
+						<Link href="/history">
+							<button className="btn btn-danger border-0 history-btn px-4 py-3 ms-auto">
+								My History
+							</button>
+						</Link>
+					</div>
 				</div>
-			)}
+			</div>
 		</div>
 	);
 }
