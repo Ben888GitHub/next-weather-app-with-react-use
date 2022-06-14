@@ -28,7 +28,8 @@ export default function Home() {
 			return data;
 		},
 		{
-			initialData: () => queryClient.getQueryData('city'),
+			enabled: !!router.query.city || !!'Medan',
+			// initialData: () => queryClient.getQueryData('city'),
 			keepPreviousData: true,
 			refetchOnWindowFocus: false,
 			refetchOnMount: false
