@@ -5,8 +5,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
-import { useQuery } from 'react-query';
+import { useQuery, QueryClient } from 'react-query';
 import { useLocalStorage } from 'react-use';
+
+const queryClient = new QueryClient();
 
 export default function Home() {
 	const router = useRouter();
@@ -26,6 +28,7 @@ export default function Home() {
 			return data;
 		},
 		{
+			initialData: () => queryClient.getQueryData('city'),
 			keepPreviousData: true,
 			refetchOnWindowFocus: false,
 			refetchOnMount: false
