@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 
 export default function Home() {
 	const router = useRouter();
-
+	const [city, setCity] = useState('Medan');
 	//
 	router.query.city && console.log(router.query.city);
 
@@ -21,7 +21,7 @@ export default function Home() {
 	const [value, setValue, remove] = useLocalStorage('weatherHistory', []);
 
 	const { data, isLoading, error } = useQuery(
-		['city', (router.query.city && router.query.city) || 'Medan'],
+		['city', (router.query.city && router.query.city) || city],
 		async ({ queryKey }) => {
 			console.log(queryKey);
 			const { data } = await axios.get(`api/weather/${queryKey[1]}`);
@@ -39,7 +39,7 @@ export default function Home() {
 	data && console.log(data);
 
 	const handleSubmit = () => {
-		// setCity(searchCity);
+		setCity(searchCity);
 
 		router.push(`/?city=${searchCity}`, undefined, {
 			shallow: true
@@ -61,9 +61,9 @@ export default function Home() {
 		setValue([...value, weatherData]);
 	};
 
-	// isLoading && <p>Loading...</p>;
+	isLoading && <p>Loading...</p>;
 
-	// error && <p>Error!</p>;
+	error && <p>Error!</p>;
 
 	// data?.cod === '404' && <p>City not found</p>;
 
