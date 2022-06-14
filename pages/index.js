@@ -28,7 +28,7 @@ export default function Home() {
 			return data;
 		},
 		{
-			initialData: () => queryClient.getQueryData('city'),
+			placeholderData: () => queryClient.getQueryData('city'),
 			keepPreviousData: true,
 			refetchOnWindowFocus: false,
 			refetchOnMount: false
