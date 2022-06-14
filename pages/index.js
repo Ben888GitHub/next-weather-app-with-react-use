@@ -29,7 +29,7 @@ export default function Home() {
 		},
 		{
 			enabled: !!router.query.city || !!'Medan',
-			// initialData: () => queryClient.getQueryData('city'),
+			initialData: () => queryClient.getQueryData('city'),
 			keepPreviousData: true,
 			refetchOnWindowFocus: false,
 			refetchOnMount: false
@@ -64,6 +64,8 @@ export default function Home() {
 	isLoading && <p>Loading...</p>;
 
 	error && <p>Error!</p>;
+
+	data?.cod === '404' && <p>City not found</p>;
 
 	return (
 		<div className={styles.container}>
