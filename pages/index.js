@@ -20,7 +20,7 @@ export default function Home() {
 
 	const [value, setValue, remove] = useLocalStorage('weatherHistory', []);
 
-	const { data, isLoading, error } = useQuery(
+	const { data, isLoading, error, isPreviousData } = useQuery(
 		['city', (router.query.city && router.query.city) || city],
 		async ({ queryKey }) => {
 			console.log(queryKey);
@@ -87,7 +87,9 @@ export default function Home() {
 							placeholder="City"
 							value={searchCity}
 						/>
-						<button onClick={handleSubmit}>Search</button>
+						<button disabled={isPreviousData} onClick={handleSubmit}>
+							Search
+						</button>
 					</div>
 					<div>
 						<h1 className="fw-bolder" style={{ fontSize: '60px' }}>
